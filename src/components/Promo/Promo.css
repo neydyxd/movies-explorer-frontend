@@ -1,5 +1,5 @@
 .promo{
-    background-color: #073042;
+    background-color: #DDDEE3;
 }
 
 .promo__container{
@@ -24,7 +24,6 @@
     position: absolute;
     max-width: 730px;
     text-align: center;
-    color: white;
     font-size: 50px;
     font-weight: 400;
     line-height: 58px;

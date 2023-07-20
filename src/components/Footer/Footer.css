@@ -3,9 +3,8 @@
     flex-direction: column;
     box-sizing: border-box;
     padding: 0 0 20px 0;
-    max-width: 1140px;
     margin: 0 auto;
-    margin-top: 80px;
+    background-color: #F8F8F8;
   }
   
   .footer__title {
@@ -20,12 +19,15 @@
     text-align: center;
     color: #a0a0a0;
     border-bottom: 1px solid #e8e8e8;
+    padding-top: 79px;
   }
   
   .footer__container {
     display: flex;
-    margin-top: 20px;
     justify-content: space-between;
+    width: 1140px;
+    margin: 0 auto;
+    margin-top: 20px;
   }
   
   .footer__author {

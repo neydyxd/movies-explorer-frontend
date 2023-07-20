@@ -8,7 +8,7 @@ function MoviesCardList({ cards }) {
   function shownCount() {
     const display = window.innerWidth;
     if (display > 1279) {
-      setShownMovies(16);
+      setShownMovies(12);
     } 
     else if (display > 767) {
       setShownMovies(8);
@@ -29,10 +29,10 @@ function MoviesCardList({ cards }) {
 
   function showMore() {
     const display = window.innerWidth;
-    if (display > 1180) {
-      setShownMovies(shownMovies + 4);
+    if (display > 1279) {
+      setShownMovies(shownMovies + 3);
     } else if (display > 1023) {
-      setShownMovies(shownMovies + 4);
+      setShownMovies(shownMovies + 2);
     }
     else if (display < 1023) {
       setShownMovies(shownMovies + 2);

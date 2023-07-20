@@ -1,8 +1,9 @@
 .filter {
     margin: 0 auto;
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
     justify-content: center;
+    margin-top: 43px;
     
   }
   
@@ -11,8 +12,7 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 18px;
-    margin-left: 41px;
-    margin-right: 14px;
+    margin-left: 10px;
   }
   
   .filter__checkbox {

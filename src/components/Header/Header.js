@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import logo from '../../images/logo.svg'
-import account from '../../images/account.png'
+import account from '../../images/account.svg'
 import menu from '../../images/menu.svg'
 import Navigation from '../Navigation/Navigation';
 const loggedIn = true;
@@ -51,16 +51,16 @@ function Header() {
                     }`
                   } 
                   activeClassName='header__button_active'>Сохраненные фильмы</NavLink>
-                    <Link to="/profile" className="header__account-button">
-                        <h3 className='header__account-title'>Аккаунт</h3>
-                        <div className='header__account-container'>
-                            <img src={account} alt='иконка человека' />
-                        </div>
-                    </Link>
                     <button onClick={handleOpen} className="header__menu-button">
                         <img src={menu} alt="меню" />
                     </button>
                 </div>
+                <Link to="/profile" className="header__account-button">
+                        <h3 className='header__account-title'>Аккаунт</h3>
+                        <div className='header__account-container'>
+                            <img src={account} alt='иконка человека' />
+                        </div>
+                </Link>
             </div>
             {isClicked ? <Navigation handleClose={handleClose} /> : ''}
         </header>

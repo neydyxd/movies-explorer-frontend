@@ -1,31 +1,34 @@
 .cards{
-    max-width: 1140px ;
+    width: 100%;
     margin: 0 auto;
-    padding-top: 70px;
-    border-top: 1px solid #E8E8E8   ;
+    background-color: #FAFAFA;
+    padding-bottom: 85px;
 }
 
 .cards__list{
+    border-top: 1px solid #E8E8E8;
+    max-width: 1140px;
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(4, 270px);
-    gap: 32px 20px;
+    grid-template-columns: repeat(3, 364px);
+    gap: 28px 20px;
     padding: 0;
-    margin: 0;
+    padding-top: 70px;
+    margin: 0 auto;
     justify-content: center;
 }
 
 .cards__button{
-    width: 1140px;
+    width: 340px;
     height: 36px;
     margin: 0 auto;
+    display: block;
     border: none;
     font-size: 12px;
     font-weight: 500;
     margin-top: 50px;
     border-radius: 6px;
-    background-color: #F9F9F9;
-    margin-bottom: 85px;
+    background-color: #F4F4F4;
 }
 
 .cards__button:hover {
