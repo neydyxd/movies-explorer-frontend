@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import logo from '../../images/logo.svg'
 import account from '../../images/account.svg'
 import menu from '../../images/menu.svg'
 import Navigation from '../Navigation/Navigation';
-const loggedIn = true;
 function Header() {
     const [isClicked, setIsClicked] = useState(false);
+    let location = useLocation();
 
     function handleOpen() {
         setIsClicked(true);
@@ -18,7 +18,7 @@ function Header() {
 
     return(
         <>
-        {!loggedIn ? (
+        {(location.pathname === '/') ? (
         <header className="header">
             <div className='header__container'>
                 <Link to="/" className="header__logo">

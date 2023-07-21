@@ -12,6 +12,11 @@
     margin-right: 40px;
 }
 
+.navtab__link:hover{
+    cursor: pointer;
+    opacity: 0.6;
+}
+
 .navtab__link:last-of-type{
     margin-right: 0;
 }
