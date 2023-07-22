@@ -44,6 +44,7 @@
     .cards__list {
         grid-template-columns: repeat(2, 339px);
         gap: 22px 30px;
+        max-width: 708px;
       }
     .cards__button{
         display: block;
@@ -58,6 +59,7 @@
     .cards__list{
         grid-template-columns: repeat(1, 300px);
         gap: 30px;
+        max-width: 300px;
     }
 
     .cards__button{

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import account from '../../images/account.png';
+import account from '../../images/account.svg';
 
 function Navigation({ handleClose }) {
   return (

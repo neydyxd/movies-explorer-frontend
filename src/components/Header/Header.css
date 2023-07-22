@@ -51,7 +51,7 @@
 }
 
 .header-movies{
-    background-color: white;
+    background-color: #FAFAFA;
 }
 
 .header__button{
@@ -177,6 +177,10 @@
 
     .header__menu-button{
         display: block;
+    }
+    
+    .header__button_active{
+        display: none;
     }
 
     .header-movies__buttons{

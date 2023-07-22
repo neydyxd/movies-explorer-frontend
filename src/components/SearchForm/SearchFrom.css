@@ -1,12 +1,12 @@
 .search{
-    max-width: 1140px;
+    max-width: 100vw;
     margin: 0 auto;
-    margin-top: 50px;
+    padding-top: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-bottom: 70px;
-    border-bottom: 1px solid #E8E8E8;
+    background-color: #FAFAFA;
 }
 
 .search__form{
@@ -26,6 +26,13 @@
     font-size: 14px;
     line-height: 18px;
     font-weight: 400;
+    background-color: #FAFAFA;
+    height: 97%;
+}
+
+.search__input:focus{
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
 }
 
 .search__input:focus {
@@ -33,14 +40,15 @@
 }
 
 .search__button {
-    background-image: url('../../images/find.png');
+    background-image: url('../../images/fing.svg');
     background-size: cover;
     width: 34px;
     height: 34px;
     border: none;
+    border-radius: 50%;
     background-position: center;
     background-repeat: no-repeat;
-    background-color: transparent;
+    background-color: #3456F3;
     margin-right: 7px;
     padding: 0;
   }
@@ -52,8 +60,6 @@
 
 @media screen and (min-width: 768px) and (max-width:1279px) {
     .search{
-        margin-top: 50px;
-        max-width: 708px;
         flex-direction: column;
         align-items: center;
         justify-content: start;
@@ -73,8 +79,6 @@
 
 @media screen and (min-width: 320px) and (max-width:767px) {
     .search{
-        margin-top: 50px;
-        max-width: 300px;
         flex-direction: column;
         align-items: center;
         justify-content: start;
