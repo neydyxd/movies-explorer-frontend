@@ -159,16 +159,24 @@
     .header__container{
         width: 292px;
         font-size: 10px;
+        justify-content: space-between;
+
     }
     
     .header__signin{
         width: 54px;
         height: 26px;
         margin-left: 14px;
+        padding-top: 6px;
     }
 
     .header__button{
         display: none;
+    }
+
+    .header__buttons{
+        width: 199px;
+        justify-content: end;
     }
 
     .header__account-button{
@@ -181,9 +189,5 @@
     
     .header__button_active{
         display: none;
-    }
-
-    .header-movies__buttons{
-        justify-content: end;
     }
 }
