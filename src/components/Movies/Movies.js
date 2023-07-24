@@ -8,10 +8,12 @@ function Movies() {
     return(
         <>
             <Header />
-            <SearcForm />
-            <MoviesCardList
-            cards={contains}
-            />
+            <main>
+                <SearcForm />
+                <MoviesCardList
+                cards={contains}
+                />
+            </main>
             <Footer />
         </>
     );

@@ -8,8 +8,10 @@ function SavedMovies() {
     return(
         <section className="movies">
             <Header />
-            <SearchForm />
-            <MoviesCardList cards={contains} />
+            <main>
+                <SearchForm />
+                <MoviesCardList cards={contains} />
+            </main>
             <Footer />
         </section>
     );
