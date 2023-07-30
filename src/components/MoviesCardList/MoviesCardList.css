@@ -31,6 +31,10 @@
     background-color: #F4F4F4;
 }
 
+.cards__button_hidden{
+    visibility: hidden;
+}
+
 .cards__button:hover {
     cursor: pointer;
     opacity: 0.6;
