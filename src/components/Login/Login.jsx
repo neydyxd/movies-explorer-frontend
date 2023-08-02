@@ -23,7 +23,9 @@ function Login({ handleAuthUser }) {
     return(
         <div className="form">
             <form className='form__container' onSubmit={handleSubmit} >
-                <img className='form__logo' src={logo} alt='логотип' />
+                <Link to='/' className='form__logo'>
+                  <img className='form__logo-image' src={logo} alt='логотип' />
+                </Link>
                 <h2 className='form__title'>Рады видеть!</h2>
                 <h3 className='form__input-title'>E-mail</h3>
                 <input className='form__input' onChange={handleEmailChange} type='email' required></input>

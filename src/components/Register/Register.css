@@ -12,8 +12,13 @@
 
 .form__logo{
     width: 38px;
-    object-fit: cover;
-    margin-bottom: 40px;
+    margin-bottom: 100px;
+    min-height: 38px;
+    
+}
+
+.form__logo-image{
+    margin-bottom: 20px;
 }
 
 .form__title{

@@ -73,7 +73,7 @@ function App() {
         setIsInfoTooltip({
           isOpen: true,
           successful: false,
-          text: err,
+          text: "Вы ввели не правильный логин или пароль",
         })
       )
       .finally(() => setIsLoader(false));

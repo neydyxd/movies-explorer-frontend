@@ -28,7 +28,9 @@ function Register({ handleRegisterUser }) {
     return(
         <div className="form">
             <form className='form__container' onSubmit={handleSubmit} >
-                <img className='form__logo' src={logo} alt='логотип' />
+                <Link to='/' className='form__logo'>
+                  <img className='form__logo-image' src={logo} alt='логотип' />
+                </Link>
                 <h2 className='form__title'>Добро пожаловать!</h2>
                 <h3 className='form__input-title'>Имя</h3>
                 <input className='form__input' onChange={handleNameChange} type='name' minLength={2} maxLength={30} required></input>
