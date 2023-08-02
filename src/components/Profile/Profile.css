@@ -72,9 +72,20 @@
     background-color: white;
     cursor: pointer;
   }
+
+  .profile__button-save_disable{
+    cursor: default;
+    color: darkgray;
+  }
   
+ 
   .profile__button-save:hover{
     opacity: 0.6;
+  }
+  
+
+  .profile__button-save_disable:hover{
+    opacity: 1;
   }
   
   .profile__logout {

@@ -1,85 +1,87 @@
 class MainApi {
-  constructor(baseUrl) {
-    this._baseUrl = baseUrl;
+  constructor(basePath, token) {
+    this._basePath = basePath;
+    this._token = token;
   }
-  // проверяет есть ли ошибка
-  _checkError(res) {
+  _getHeaders() {
+    return {
+      "Content-type": "application/json",
+      authorization: this._token,
+    };
+  }
+  _getJson(res) {
     if (res.ok) {
       return res.json();
     }
-    return Promise.reject(`Статус ошибки: ${res.status}`);
-  }
-  // регистрация пользователя
-  registerUser(name, email, password) {
-    return fetch(`${this._baseUrl}/signup`, {
-      method: "POST",
-      headers: {
-        'Accept': 'application/json',
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ name, email, password }),
-    }).then((res) => this._checkError(res));
+    return Promise.reject(`Ошибка: ${res.status}`);
   }
 
-  // вход пользователя
-  loginUser(email, password) {
-    return fetch(`${this._baseUrl}/signin`, {
-      method: "POST",
+
+  getCurrentUser() {
+    const token = localStorage.getItem("jwt");
+    return fetch(`${this._basePath}/users/me `, {
       headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    }).then((res) => this._checkError(res));
+      "Content-type": "application/json",
+      authorization: `Bearer ${token}`,
+      }
+    }).then(this._getJson);
   }
 
-  // проверяем токен
-  checkToken(token) {
-    return fetch(`${this._baseUrl}/users/me`, {
-      method: "GET",
+  updateUser(name, email) {
+    return fetch(`${this._basePath}/users/me`, {
+      method: 'PATCH',
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        authorization: `Bearer ${localStorage.getItem('jwt')}`,
+        'Content-Type': 'application/json',
       },
-    }).then((res) => this._checkError(res));
+      body: JSON.stringify({ name, email }),
+    }).then(res => this._getJson(res));
   }
 
-    logout() {
-    return fetch(`${this._baseUrl}/signout`, {
-      method: "GET",
+  addNewMovie(data) {
+    return fetch(`${this._basePath}/movies`, {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem('jwt')}`,
+        'Content-Type': 'application/json',
       },
-      credentials: "include",
-    })
-      .then((res) => this._checkError(res));
-  };
-
-  getUserData() {
-    return fetch(`${this._baseUrl}/users/me`, {
-      method: "GET",
-      headers: {
-      "Content-Type": "application/json",
-      authorization: `Bearer ${localStorage.getItem('jwt')}`,
-      },
-      
-    }).then((res) =>
-     this._checkError(res));
-  }
-
-  setUserData(data) {
-    return fetch(`${this._baseUrl}/users/me`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
       body: JSON.stringify({
-        name: data.name,
-        email: data.email,
+        country: data.country,
+        director: data.director,
+        duration: data.duration,
+        year: data.year,
+        description: data.description,
+        image: data.image,
+        trailerLink: data.trailerLink,
+        thumbnail: data.thumbnail,
+        movieId: data.id,
+        nameRU: data.nameRU,
+        nameEN: data.nameEN,
       }),
-    }).then((res) => this._checkError(res));
+    }).then(res => this._getJson(res));
+  }
+
+  // удаление фильма из сохранённых
+  deleteMovie(data) {
+    return fetch(`${this._basePath}/movies/${data}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      },
+    }).then(res => this._getJson(res));
+  }
+
+  getSavedMovies() {
+    return fetch(`${this._basePath}/movies`, {
+      method: 'GET',
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      },
+    }).then(res => this._getJson(res));
   }
 }
-const mainApi = new MainApi("https://api.movies.neydy.nomoreparties.sbs");
-export default mainApi;
-  
+
+
+const mainApi = new MainApi('https://api.movies.neydy.nomoreparties.sbs');
+
+  export default mainApi;

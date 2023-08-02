@@ -1,6 +1,5 @@
-const SHORTMOVIES_DURATION = 40;
-export function transformMovies(movies) {
-  
+// проверка изображений полученных от сервера
+function transformMovies(movies) {
   movies.forEach(movie => {
     if (!movie.image) {
       movie.image = 'https://images.unsplash.com/photo-1485846234645-a62644f84728?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1940&q=80';
@@ -20,12 +19,12 @@ export function transformMovies(movies) {
 }
 
 // фильтрация по длительности
-export function filterShortMovies(movies) {
-  return movies.filter(movie => movie.duration < SHORTMOVIES_DURATION);
+function filterShortMovies(movies) {
+  return movies.filter(movie => movie.duration < 40);
 }
 
 // фильтрация по запросу
-export function filterMovies(movies, userQuery, shortMoviesCheckbox) {
+function filterMovies(movies, userQuery, shortMoviesCheckbox) {
   const moviesByUserQuery = movies.filter((movie) => {
     const movieRu = String(movie.nameRU).toLowerCase().trim();
     const movieEn = String(movie.nameEN).toLowerCase().trim();
@@ -41,7 +40,7 @@ export function filterMovies(movies, userQuery, shortMoviesCheckbox) {
 }
 
 // преобразование длительности
-export function transformDuration(duration) {
+function transformDuration(duration) {
   const hours = Math.trunc(duration / 60);
   const minutes = duration % 60;
   if(hours === 0) {
@@ -52,9 +51,16 @@ export function transformDuration(duration) {
 }
 
 // cравнение сохраненных фильмов
- export function getSavedMovieCard(arr, movie) {
+function getSavedMovieCard(arr, movie) {
   return arr.find((item) => {
     return item.movieId === (movie.id || movie.movieId);
   });
 }
 
+export {
+  transformMovies,
+  filterMovies,
+  filterShortMovies,
+  transformDuration,
+  getSavedMovieCard,
+};

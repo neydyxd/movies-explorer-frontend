@@ -6,7 +6,7 @@ function Portfolio() {
             <h3 className="portfolio__title">Портфолио</h3>
             <nav className="portfolio__list">
                 <a
-                href="https://andryuha-nikolaev.github.io/how-to-learn/"
+                href="https://github.com/neydyxd/how-to-learn"
                 className="portfolio__link portfolio__link-border"
                 target="_blank"
                 rel="noreferrer">
@@ -14,7 +14,7 @@ function Portfolio() {
                 <img className="portfolio__image" src={arrow} alt="стрелка" />
                 </a>
                 <a
-                href="https://andryuha-nikolaev.github.io/russian-travel/"
+                href="https://github.com/neydyxd/russian-travel"
                 className="portfolio__link portfolio__link-border"
                 target="_blank"
                 rel="noreferrer">
@@ -22,7 +22,7 @@ function Portfolio() {
                 <img className="portfolio__image" src={arrow} alt="стрелка" />
                 </a>
                 <a
-                href="https://andryuha-nikolaev.github.io/react-mesto-auth/"
+                href="https://neydyxd.github.io/react-mesto-auth/"
                 className="portfolio__link"
                 target="_blank"
                 rel="noreferrer">

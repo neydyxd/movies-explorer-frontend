@@ -1,9 +1,11 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import MoviesCard from "../MoviesCard/MoviesCard.js";
-function MoviesCardList({ cards }) {
+import { getSavedMovieCard } from '../../utils/utils.js';
+function MoviesCardList({ moviesList, savedMoviesList, onLikeClick, onDeleteClick }) {
 
   const [shownMovies, setShownMovies] = useState(0);
+  const [showMovieList, setShowMovieList] = useState([]);
 
   function shownCount() {
     const display = window.innerWidth;
@@ -41,14 +43,17 @@ function MoviesCardList({ cards }) {
     return (
         <section className="cards">
             <ul className="cards__list">
-                {cards.slice(0, shownMovies).map((card) => (
-                  <MoviesCard
-                    cards={cards}
-                    card={card}
-                  />
-                ))}
+            {moviesList.slice(0, shownMovies).map(movie => (
+              <MoviesCard
+                key={movie.id || movie._id}
+                saved={getSavedMovieCard(savedMoviesList, movie)}
+                movie={movie}
+                onLikeClick={onLikeClick}
+                onDeleteClick={onDeleteClick}
+              />
+            ))}
             </ul>
-            {cards.length > shownMovies ? (
+            {moviesList.length > shownMovies ? (
                   <button className="cards__button" onClick={showMore}>
                     Ещё
                   </button>

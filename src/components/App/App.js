@@ -1,4 +1,4 @@
-import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
+import { Route, Routes, useNavigate} from 'react-router-dom';
 import {useState, useEffect} from 'react';
 import Main from '../Main/Main';
 import './App.css';
@@ -8,73 +8,216 @@ import Movies from '../Movies/Movies';
 import Profile from '../Profile/Profile';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import NotFound from '../NotFound/NotFound';
+import Preloader from '../Preloader/Preloader';
 import mainApi from '../../utils/MainApi';
-import success from "../../images/success.png";
-import error from "../../images/fail.png";
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
-
+import authApi from '../../utils/AuthApi'
+import InfoTooltip from '../../components/InfoTooltip/InfoTooltip'
 function App() {
-  const location = useLocation();
-  const [token, setToken] = useState("");
-  const [currentUser, setCurrentUser] = useState({});
-  const [showToolTip, setShowToolTip] = useState(false);
+  const [currentUser, setCurrentUser] = useState({
+    email: '',
+    name: ''
+  });
   const [loggedIn, setLoggedIn] = useState(false);
-  const [info, setInfo] = useState({ image: "", text: "" });
+  const [load, setLoad] = useState(false);
+  const [isLoader, setIsLoader] = useState(false);
+  const [isInfoTooltip, setIsInfoTooltip] = useState({
+    isOpen: false,
+    successful: true,
+    text: '',
+  });
   const navigate = useNavigate();
+  const [savedMoviesList, setSavedMoviesList] = useState([]);
 
-  function ChooseInfoTooltip (info) {
-    setInfo({ image: info.image, text: info.text });
+  function closeInfoTooltip() {
+    setIsInfoTooltip({ ...isInfoTooltip, isOpen: false });
   }
   
   function handleRegisterUser(name,email,password) {
-    console.log(name, email, password);
-    mainApi.registerUser(name, email, password)
+    authApi.registerUser(name, email, password)
     .then((data) => {
-      setTimeout(setShowToolTip, 1000, true);
-      ChooseInfoTooltip({
-        image: success,
-        text:'Вы успешно зарегистрировались'
-      })
-   
       if(data) {
       setLoggedIn(true);
+      setCurrentUser({
+        name,
+        email,
+      });
       handleAuthUser(email,password);
     }
     })
     .catch((err) => {
-      setTimeout(setShowToolTip, 1000, true);
-      ChooseInfoTooltip({
-        image: error,
-        text: "Что-то пошло не так! Попробуйте еще раз!",
+      setIsInfoTooltip({
+        isOpen: true,
+        successful: false,
+        text: err,
       });
-    });
+    })
+    .finally(() => setIsLoader(false));
   }
 
   function handleAuthUser(email, password) {
-    mainApi.loginUser(email, password)
+    authApi.loginUser(email, password)
     .then((res) => {
       localStorage.setItem('jwt', res.token)
       setLoggedIn(true)
       setTimeout(() => {navigate('/movies')}, 200)
+      setIsInfoTooltip({
+        isOpen: true,
+        successful: true,
+        text: 'Добро пожаловать!',
+      });
       }
       )
+      .catch(err =>
+        setIsInfoTooltip({
+          isOpen: true,
+          successful: false,
+          text: err,
+        })
+      )
+      .finally(() => setIsLoader(false));
   }
-  useEffect(() => {
-    if (loggedIn) {
-      const jwt = localStorage.getItem('jwt')
-      mainApi
-        .getUserData(jwt)
-        .then(res => setCurrentUser(res))
-        .catch((err) => console.log(err))
-    }
-  }, [loggedIn]);
   
+  function handleSignOut() {
+    setCurrentUser({});
+    setLoggedIn(false);
+    localStorage.clear();
+  }
+  
+  function handleProfile({ name, email }) {
+    mainApi
+      .updateUser(name, email)
+      .then(newUserData => {
+        setCurrentUser(newUserData);
+        setIsInfoTooltip({
+          isOpen: true,
+          successful: true,
+          text: 'Ваши данные обновлены!',
+        });
+      })
+      .catch(err =>
+        setIsInfoTooltip({
+          isOpen: true,
+          successful: false,
+          text: err,
+        })
+      )
+      .finally(() => setIsLoader(false));
+  }
 
-  
+  function handleSaveMovie(movie) {
+    console.log(movie);
+    mainApi
+      .addNewMovie(movie)
+      .then(newMovie => setSavedMoviesList([newMovie, ...savedMoviesList]))
+      .catch(err =>
+        setIsInfoTooltip({
+          isOpen: true,
+          successful: false,
+          text: err,
+        })
+      );
+  }
+
+  function handleDeleteMovie(movie) {
+    const savedMovie = savedMoviesList.find(
+      (item) => item.movieId === movie.id || item.movieId === movie.movieId
+    );
+    mainApi
+      .deleteMovie(savedMovie._id)
+      .then(() => {
+        const newMoviesList = savedMoviesList.filter(m => {
+          if (movie.id === m.movieId || movie.movieId === m.movieId) {
+            return false;
+          } else {
+            return true;
+          }
+        });
+        setSavedMoviesList(newMoviesList);
+      })
+      .catch(err =>
+        setIsInfoTooltip({
+          isOpen: true,
+          successful: false,
+          text: err,
+        })
+      );
+  }
+
+  useEffect(() => {
+    const jwt = localStorage.getItem("jwt");
+    if (jwt) {
+      authApi
+        .checkToken(jwt)
+        .then((user) => {
+          if (user) {
+            setLoggedIn(true);
+            setCurrentUser({
+              email: user.email,
+              name: user.name
+            });
+            navigate("/movies", { replace: true });
+          }
+        })
+        .catch(err =>
+          setIsInfoTooltip({
+            isOpen: true,
+            successful: false,
+            text: err,
+          })
+        )
+        .finally(() => {
+          setIsLoader(false);
+          setLoad(true);
+        });
+    } else {
+      setLoad(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    mainApi
+      .getCurrentUser()
+      .then((user) => {
+        setCurrentUser({
+          email: user.email,
+          name: user.name
+        });
+      })
+      .catch(err =>
+        setIsInfoTooltip({
+          isOpen: true,
+          successful: false,
+          text: err,
+        })
+      )
+      .finally(() => setIsLoader(false));
+  }, []);
+
+  useEffect(() => {
+    if (loggedIn && currentUser) {
+      mainApi
+        .getSavedMovies()
+        .then(data => {
+          setSavedMoviesList(data.reverse());
+        })
+        .catch(err =>
+          setIsInfoTooltip({
+            isOpen: true,
+            successful: false,
+            text: err,
+          })
+        );
+    }
+  }, [currentUser, loggedIn]);
+
 
   return (
   <div className='App'>
+    {!load ? (
+        <Preloader isOpen={isLoader} />
+      ) : (
     <CurrentUserContext.Provider value={currentUser}>
     <Routes>
       <Route
@@ -92,25 +235,47 @@ function App() {
       <Route
         path='/movies'
         element={<ProtectedRoute loggedIn={loggedIn}>
-          <Movies />
+          <Movies 
+          savedMoviesList={savedMoviesList}
+          setIsLoader={setIsLoader}
+          setIsInfoTooltip={setIsInfoTooltip}
+          onLikeClick={handleSaveMovie}
+          onDeleteClick={handleDeleteMovie}
+
+          />
         </ProtectedRoute>}
       />
       <Route
         path='/profile'
         element={<ProtectedRoute loggedIn={loggedIn} >
-          <Profile/>
+          <Profile
+          handleProfile={handleProfile}
+          handleSignOut={handleSignOut}
+          />
         </ProtectedRoute>}
       />
       <Route
         path='/saved-movies'
-        element={<SavedMovies />}
+        element={<ProtectedRoute loggedIn={loggedIn}>
+          <SavedMovies 
+          savedMoviesList={savedMoviesList}
+          onDeleteClick={handleDeleteMovie}
+          setIsInfoTooltip={setIsInfoTooltip}
+          />
+        </ProtectedRoute>}
       />
       <Route
         path="*"
         element={<NotFound />}
       />
     </Routes>
+    <Preloader isOpen={isLoader} />
+          <InfoTooltip
+            status={isInfoTooltip}
+            onClose={closeInfoTooltip}
+          />
     </CurrentUserContext.Provider>
+      )}
   </div>
   );
 }

@@ -33,12 +33,15 @@
     width: 30px;
     height: 30px;
     border-radius: 50%;
+    padding: 0;
     border: none;
     background-image: url(../../images/white-like.svg);
     background-repeat: no-repeat;
     background-position: center;
-    background-color: white;
+    margin-right: 20px;
+    background-color: white ;
 }
+
 
 .card__like_active{
     width: 30px;
@@ -55,6 +58,7 @@
 
 .card__like:hover{
     opacity: 0.6;
+    cursor: pointer;
 }
 
 .card__time{

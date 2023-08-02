@@ -27,6 +27,7 @@
     box-sizing: border-box;
     box-shadow: 0 0 20px 20px #3da3dc5c;
     cursor: default;
+    position: relative;
   }
   
   .info-tooltip__status {

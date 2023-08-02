@@ -1,12 +1,16 @@
 import React from 'react';
 
-const Preloader = () => {
+const Preloader = ({ isOpen }) => {
   return (
-    <div className="preloader">
-      <div className="preloader__container">
-        <span className="preloader__round"></span>
+    <>
+    {isOpen && (
+      <div className="preloader">
+        <div className="preloader__container">
+          <span className="preloader__round"></span>
+        </div>
       </div>
-    </div>
+    )}
+    </>
   );
 };
 
