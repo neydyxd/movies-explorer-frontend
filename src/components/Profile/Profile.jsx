@@ -62,7 +62,11 @@ function Profile({ handleSignOut, handleProfile, loggedIn }){
                         required
                         />
                     </label>
-                    <button  className={`profile__button-save ${requirementValidity ? 'profile__button-save_disable' : ''}`} type="submit">Редактировать</button>
+                    {requirementValidity ? 
+                    (<p className="profile__button-save profile__button-save_disable" >Редактировать</p>) 
+                    : 
+                    (<button  className="profile__button-save" type="submit">Редактировать</button>)
+                  }
                 </form>
                 <button type="submit" className="profile__logout" onClick={handleSignOut}>
                         Выйти из аккаунта

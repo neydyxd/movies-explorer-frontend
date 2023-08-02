@@ -76,6 +76,7 @@
   .profile__button-save_disable{
     cursor: default;
     color: darkgray;
+    margin-bottom: 0;
   }
   
  
