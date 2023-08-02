@@ -43,7 +43,7 @@ function App() {
         name,
         email,
       });
-      handleAuthUser(email,password);
+      handleAuthUser( email,password );
     }
     })
     .catch((err) => {
@@ -56,7 +56,18 @@ function App() {
     .finally(() => setIsLoader(false));
   }
 
-  function handleAuthUser(email, password) {
+  function setUserData() {
+    const jwt = localStorage.getItem('jwt');
+    authApi.checkToken(jwt)
+    .then((user) => {
+      setCurrentUser({
+        email: user.email,
+        name: user.name
+      });
+    })
+  }
+
+  function handleAuthUser( email,password) {
     authApi.loginUser(email, password)
     .then((res) => {
       localStorage.setItem('jwt', res.token)
@@ -67,6 +78,7 @@ function App() {
         successful: true,
         text: 'Добро пожаловать!',
       });
+      setUserData();
       }
       )
       .catch(err =>
