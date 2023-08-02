@@ -250,6 +250,7 @@ function App() {
         path='/profile'
         element={<ProtectedRoute loggedIn={loggedIn} >
           <Profile
+          loggedIn={loggedIn}
           handleProfile={handleProfile}
           handleSignOut={handleSignOut}
           />

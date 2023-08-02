@@ -22,8 +22,8 @@ function SearcForm({ handleSearchSubmit, handleShortFilms, shortMovies }) {
     }, [isValid]);
 
     useEffect(() => {
-        if (location.pathname === '/movies' && localStorage.getItem(`${currentUser.email} - movieSearch`)) {
-        const searchValue = localStorage.getItem(`${currentUser.email} - movieSearch`);
+        if (location.pathname === '/movies' && localStorage.getItem(`${currentUser} - movieSearch`)) {
+        const searchValue = localStorage.getItem(`${currentUser} - movieSearch`);
         values.search = searchValue;
         setIsValid(true);
         }

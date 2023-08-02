@@ -33,14 +33,14 @@ function Movies({ setIsLoader, setIsInfoTooltip, savedMoviesList, onLikeClick, o
       shortMoviesCheckbox ? filterShortMovies(moviesList) : moviesList
     );
     localStorage.setItem(
-      `${currentUser.email} - movies`,
+      `${currentUser} - movies`,
       JSON.stringify(moviesList)
     );
   }
 
   function handleSearchSubmit(inputValue) {
-    localStorage.setItem(`${currentUser.email} - movieSearch`, inputValue);
-    localStorage.setItem(`${currentUser.email} - shortMovies`, shortMovies);
+    localStorage.setItem(`${currentUser} - movieSearch`, inputValue);
+    localStorage.setItem(`${currentUser} - shortMovies`, shortMovies);
 
     if (isAllMovies.length === 0) {
       moviesApi
@@ -74,11 +74,11 @@ function Movies({ setIsLoader, setIsInfoTooltip, savedMoviesList, onLikeClick, o
     } else {
       setFilteredMovies(initialMovies);
     }
-    localStorage.setItem(`${currentUser.email} - shortMovies`, !shortMovies);
+    localStorage.setItem(`${currentUser} - shortMovies`, !shortMovies);
   }
 
   useEffect(() => {
-    if (localStorage.getItem(`${currentUser.email} - shortMovies`) === 'true') {
+    if (localStorage.getItem(`${currentUser} - shortMovies`) === 'true') {
       setShortMovies(true);
     } else {
       setShortMovies(false);
@@ -86,13 +86,13 @@ function Movies({ setIsLoader, setIsInfoTooltip, savedMoviesList, onLikeClick, o
   }, [currentUser]);
 
   useEffect(() => {
-    if (localStorage.getItem(`${currentUser.email} - movies`)) {
+    if (localStorage.getItem(`${currentUser} - movies`)) {
       const movies = JSON.parse(
-        localStorage.getItem(`${currentUser.email} - movies`)
+        localStorage.getItem(`${currentUser} - movies`)
       );
       setInitialMovies(movies);
       if (
-        localStorage.getItem(`${currentUser.email} - shortMovies`) === 'true'
+        localStorage.getItem(`${currentUser} - shortMovies`) === 'true'
       ) {
         setFilteredMovies(filterShortMovies(movies));
       } else {

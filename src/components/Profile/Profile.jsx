@@ -6,7 +6,7 @@ import Header from "../Header/Header";
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import useFormWithValidation from '../../hooks/useFormWithValidation.jsx';
 
-function Profile({ handleSignOut, handleProfile }){
+function Profile({ handleSignOut, handleProfile, loggedIn }){
 
   const { values, handleChange, resetForm, errors, isValid } = useFormWithValidation();
   const currentUser = useContext(CurrentUserContext);
@@ -31,7 +31,7 @@ function Profile({ handleSignOut, handleProfile }){
 
     return(
         <>
-            <Header />
+            <Header loggedIn={loggedIn} />
             <section className="profile">
                 <h3 className="profile__title">{`Привет, ${currentUser.name || ''}!`}</h3>
                 <form className="profile__form" onSubmit={handleSubmit}>
