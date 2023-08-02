@@ -14,6 +14,7 @@ function SearcForm({ handleSearchSubmit, handleShortFilms, shortMovies }) {
     function handleSubmit(e) {
         e.preventDefault();
         isValid ? handleSearchSubmit(values.search) : setErrorQuery('Нужно ввести ключевое слово.');
+        console.log(isValid);
     };
 
     useEffect(() => {
@@ -27,7 +28,6 @@ function SearcForm({ handleSearchSubmit, handleShortFilms, shortMovies }) {
         setIsValid(true);
         }
     }, [currentUser]);
-    
     return(
         <section className="search">
             <form className="search__form" id="form" onSubmit={handleSubmit}>

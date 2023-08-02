@@ -12,11 +12,13 @@ function MoviesCard({ movie, saved, onLikeClick, onDeleteClick }) {
     
     return(
         <li className="card">
-            <img
-            className="card__image"
-            alt={movie.nameRU}
-            src={movie.image}
-            />
+            <a target="_blank" rel="noreferrer" href={movie.trailerLink}>
+                <img
+                className="card__image"
+                alt={movie.nameRU}
+                src={movie.image}
+                />
+            </a>
             <div className="card__container">
                 <div className="card__info-container">
                     <h2 className="card__text">{movie.nameRU}</h2>

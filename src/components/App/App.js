@@ -50,7 +50,7 @@ function App() {
       setIsInfoTooltip({
         isOpen: true,
         successful: false,
-        text: err,
+        text: 'Такой пользователь уже существует'
       });
     })
     .finally(() => setIsLoader(false));
