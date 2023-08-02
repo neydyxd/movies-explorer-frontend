@@ -4,7 +4,7 @@ import logo from '../../images/logo.svg'
 import account from '../../images/account.svg'
 import menu from '../../images/menu.svg'
 import Navigation from '../Navigation/Navigation';
-function Header() {
+function Header({loggedIn}) {
     const [isClicked, setIsClicked] = useState(false);
     let location = useLocation();
 
@@ -18,7 +18,7 @@ function Header() {
 
     return(
         <>
-        {(location.pathname === '/') ? (
+        {(!loggedIn) ? (
         <header className="header">
             <div className='header__container'>
                 <Link to="/" className="header__logo">

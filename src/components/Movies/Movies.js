@@ -7,7 +7,7 @@ import CurrentUserContext from '../../contexts/CurrentUserContext';
 import moviesApi from '../../utils/MoviesApi'
 import { transformMovies, filterMovies, filterShortMovies } from '../../utils/utils.js';
 
-function Movies({ setIsLoader, setIsInfoTooltip, savedMoviesList, onLikeClick, onDeleteClick }) {
+function Movies({ setIsLoader, setIsInfoTooltip, savedMoviesList, onLikeClick, onDeleteClick, loggedIn }) {
 
     const [shortMovies, setShortMovies] = useState(false);
     const [initialMovies, setInitialMovies] = useState([]); 
@@ -102,7 +102,7 @@ function Movies({ setIsLoader, setIsInfoTooltip, savedMoviesList, onLikeClick, o
   }, [currentUser]);
     return(
         <>
-            <Header />
+            <Header loggedIn={loggedIn}/>
             <main>
                 <SearcForm 
                 handleSearchSubmit={handleSearchSubmit}

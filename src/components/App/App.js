@@ -222,7 +222,7 @@ function App() {
     <Routes>
       <Route
         path='/'
-        element={<Main />}
+        element={<Main loggedIn={loggedIn} />}
       />
       <Route
         path='/sign-up'
@@ -236,6 +236,7 @@ function App() {
         path='/movies'
         element={<ProtectedRoute loggedIn={loggedIn}>
           <Movies 
+          loggedIn={loggedIn}
           savedMoviesList={savedMoviesList}
           setIsLoader={setIsLoader}
           setIsInfoTooltip={setIsInfoTooltip}
