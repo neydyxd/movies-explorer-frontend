@@ -9,7 +9,7 @@ import {
     filterShortMovies, // фильтрация по длительности
   } from '../../utils/utils.js';
 
-function SavedMovies({ onDeleteClick, savedMoviesList, setIsInfoTooltip }) {
+function SavedMovies({ onDeleteClick, savedMoviesList, setIsInfoTooltip, loggedIn }) {
 
     const currentUser = useContext(CurrentUserContext);
 
@@ -67,7 +67,7 @@ function SavedMovies({ onDeleteClick, savedMoviesList, setIsInfoTooltip }) {
   }, [savedMoviesList]);
     return(
         <section className="movies">
-            <Header />
+            <Header loggedIn={loggedIn} />
             <main>
                 <SearchForm
                 handleSearchSubmit={handleSearchSubmit}

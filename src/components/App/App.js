@@ -8,7 +8,6 @@ import Movies from '../Movies/Movies';
 import Profile from '../Profile/Profile';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import NotFound from '../NotFound/NotFound';
-import Preloader from '../Preloader/Preloader';
 import mainApi from '../../utils/MainApi';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
@@ -20,8 +19,6 @@ function App() {
     name: ''
   });
   const [loggedIn, setLoggedIn] = useState(false);
-  const [load, setLoad] = useState(false);
-  const [isLoader, setIsLoader] = useState(false);
   const [isInfoTooltip, setIsInfoTooltip] = useState({
     isOpen: false,
     successful: true,
@@ -53,7 +50,6 @@ function App() {
         text: 'Такой пользователь уже существует'
       });
     })
-    .finally(() => setIsLoader(false));
   }
 
   function setUserData() {
@@ -88,7 +84,6 @@ function App() {
           text: "Вы ввели не правильный логин или пароль",
         })
       )
-      .finally(() => setIsLoader(false));
   }
   
   function handleSignOut() {
@@ -115,7 +110,6 @@ function App() {
           text: err,
         })
       )
-      .finally(() => setIsLoader(false));
   }
 
   function handleSaveMovie(movie) {
@@ -179,12 +173,7 @@ function App() {
             text: err,
           })
         )
-        .finally(() => {
-          setIsLoader(false);
-          setLoad(true);
-        });
     } else {
-      setLoad(true);
     }
   }, []);
 
@@ -204,7 +193,6 @@ function App() {
           text: err,
         })
       )
-      .finally(() => setIsLoader(false));
   }, []);
 
   useEffect(() => {
@@ -227,9 +215,7 @@ function App() {
 
   return (
   <div className='App'>
-    {!load ? (
-        <Preloader isOpen={isLoader} />
-      ) : (
+
     <CurrentUserContext.Provider value={currentUser}>
     <Routes>
       <Route
@@ -250,7 +236,6 @@ function App() {
           <Movies 
           loggedIn={loggedIn}
           savedMoviesList={savedMoviesList}
-          setIsLoader={setIsLoader}
           setIsInfoTooltip={setIsInfoTooltip}
           onLikeClick={handleSaveMovie}
           onDeleteClick={handleDeleteMovie}
@@ -275,6 +260,7 @@ function App() {
           savedMoviesList={savedMoviesList}
           onDeleteClick={handleDeleteMovie}
           setIsInfoTooltip={setIsInfoTooltip}
+          loggedIn={loggedIn}
           />
         </ProtectedRoute>}
       />
@@ -283,13 +269,11 @@ function App() {
         element={<NotFound />}
       />
     </Routes>
-    <Preloader isOpen={isLoader} />
           <InfoTooltip
             status={isInfoTooltip}
             onClose={closeInfoTooltip}
           />
     </CurrentUserContext.Provider>
-      )}
   </div>
   );
 }

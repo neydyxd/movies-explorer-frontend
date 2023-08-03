@@ -5,15 +5,17 @@ import { useState, useContext, useEffect } from 'react';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import moviesApi from '../../utils/MoviesApi'
+import Preloader from '../Preloader/Preloader';
 import { transformMovies, filterMovies, filterShortMovies } from '../../utils/utils.js';
 
-function Movies({ setIsLoader, setIsInfoTooltip, savedMoviesList, onLikeClick, onDeleteClick, loggedIn }) {
+function Movies({ setIsInfoTooltip, savedMoviesList, onLikeClick, onDeleteClick, loggedIn }) {
 
     const [shortMovies, setShortMovies] = useState(false);
     const [initialMovies, setInitialMovies] = useState([]); 
     const [filteredMovies, setFilteredMovies] = useState([]); 
     const [NotFound, setNotFound] = useState(false); 
     const [isAllMovies, setIsAllMovies] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
     const currentUser = useContext(CurrentUserContext);
 
   function handleSetFilteredMovies(movies, userQuery, shortMoviesCheckbox) {
@@ -41,7 +43,6 @@ function Movies({ setIsLoader, setIsInfoTooltip, savedMoviesList, onLikeClick, o
   function handleSearchSubmit(inputValue) {
     localStorage.setItem(`${currentUser} - movieSearch`, inputValue);
     localStorage.setItem(`${currentUser} - shortMovies`, shortMovies);
-
     if (isAllMovies.length === 0) {
       moviesApi
         .getMovies()
@@ -52,7 +53,7 @@ function Movies({ setIsLoader, setIsInfoTooltip, savedMoviesList, onLikeClick, o
             inputValue,
             shortMovies
           );
-          setIsLoader(true);
+            setIsLoading(true);     
         })
         .catch(() =>
           setIsInfoTooltip({
@@ -61,7 +62,9 @@ function Movies({ setIsLoader, setIsInfoTooltip, savedMoviesList, onLikeClick, o
             text: 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.',
           })
         )
-        .finally(() => setIsLoader(false));
+        .finally(() => setTimeout(function() {
+          setIsLoading(false);
+        }, 3000));
     } else {
       handleSetFilteredMovies(isAllMovies, inputValue, shortMovies);
     }
@@ -109,6 +112,7 @@ function Movies({ setIsLoader, setIsInfoTooltip, savedMoviesList, onLikeClick, o
                 handleShortFilms={handleShortFilms}
                 shortMovies={shortMovies}
                 />
+                {isLoading && <Preloader/>}
                 {!NotFound && (
                 <MoviesCardList
                 moviesList={filteredMovies}
