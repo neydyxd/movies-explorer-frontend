@@ -2,14 +2,16 @@ import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
 import SearcForm from '../SearchForm/SearchForm';
 import { useState, useContext, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import moviesApi from '../../utils/MoviesApi'
 import Preloader from '../Preloader/Preloader';
 import { transformMovies, filterMovies, filterShortMovies } from '../../utils/utils.js';
+import useFormWithValidation from '../../hooks/useFormWithValidation.jsx';
 
 function Movies({ setIsInfoTooltip, savedMoviesList, onLikeClick, onDeleteClick, loggedIn }) {
-
+    const location = useLocation()
     const [shortMovies, setShortMovies] = useState(false);
     const [initialMovies, setInitialMovies] = useState([]); 
     const [filteredMovies, setFilteredMovies] = useState([]); 
@@ -17,6 +19,27 @@ function Movies({ setIsInfoTooltip, savedMoviesList, onLikeClick, onDeleteClick,
     const [isAllMovies, setIsAllMovies] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const currentUser = useContext(CurrentUserContext);
+    const [firstSearch, setFirstSearch] = useState(true);
+    const { values, handleChange, isValid, setIsValid } = useFormWithValidation();
+    const [errorQuery, setErrorQuery] = useState('');
+
+    function handleSubmit(e) {
+      e.preventDefault();
+      setFirstSearch(false)
+      isValid ? handleSearchSubmit(values.search) : setErrorQuery('Нужно ввести ключевое слово.');
+  };
+  
+  useEffect(() => {
+      setErrorQuery('')
+  }, [isValid]);
+
+  useEffect(() => {
+      if (location.pathname === '/movies' && localStorage.getItem(`${currentUser} - movieSearch`)) {
+      const searchValue = localStorage.getItem(`${currentUser} - movieSearch`);
+      values.search = searchValue;
+      setIsValid(true);
+      }
+  }, [currentUser]);
 
   function handleSetFilteredMovies(movies, userQuery, shortMoviesCheckbox) {
     const moviesList = filterMovies(movies, userQuery, shortMoviesCheckbox);
@@ -40,9 +63,11 @@ function Movies({ setIsInfoTooltip, savedMoviesList, onLikeClick, onDeleteClick,
     );
   }
 
+
   function handleSearchSubmit(inputValue) {
     localStorage.setItem(`${currentUser} - movieSearch`, inputValue);
     localStorage.setItem(`${currentUser} - shortMovies`, shortMovies);
+    console.log(shortMovies);
     if (isAllMovies.length === 0) {
       moviesApi
         .getMovies()
@@ -103,14 +128,26 @@ function Movies({ setIsInfoTooltip, savedMoviesList, onLikeClick, onDeleteClick,
       }
     }
   }, [currentUser]);
-    return(
+
+  useEffect(() => {
+    if (!firstSearch) {
+    handleSearchSubmit(values.search);
+    }
+  }, [shortMovies])
+
+  const input = values.search || ''
+    
+  return(
         <>
             <Header loggedIn={loggedIn}/>
             <main>
                 <SearcForm 
-                handleSearchSubmit={handleSearchSubmit}
                 handleShortFilms={handleShortFilms}
                 shortMovies={shortMovies}
+                handleSubmit={handleSubmit}
+                handleChange={handleChange}
+                input={input}
+                errorQuery={errorQuery}
                 />
                 {isLoading && <Preloader/>}
                 {!NotFound && (

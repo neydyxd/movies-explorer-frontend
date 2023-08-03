@@ -4,21 +4,43 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList'
 import Footer from '../Footer/Footer'   
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import { useState, useContext, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import {
     filterMovies, // фильтрация начального массива всех фильмов по запросу
     filterShortMovies, // фильтрация по длительности
   } from '../../utils/utils.js';
+  import useFormWithValidation from '../../hooks/useFormWithValidation.jsx';
 
 function SavedMovies({ onDeleteClick, savedMoviesList, setIsInfoTooltip, loggedIn }) {
+  const location = useLocation();
+  const currentUser = useContext(CurrentUserContext);
+  const [shortMovies, setShortMovies] = useState(false); 
+  const [NotFound, setNotFound] = useState(false); 
+  const [showedMovies, setShowedMovies] = useState(savedMoviesList); 
+  const [filteredMovies, setFilteredMovies] = useState(showedMovies); 
+  const [firstSearch, setFirstSearch] = useState(true);
+  const { values, handleChange, isValid, setIsValid } = useFormWithValidation();
+  const [errorQuery, setErrorQuery] = useState('');
 
-    const currentUser = useContext(CurrentUserContext);
 
-  const [shortMovies, setShortMovies] = useState(false); // состояние чекбокса
-  const [NotFound, setNotFound] = useState(false); // если по запросу ничего не найдено - скроем фильмы
-  const [showedMovies, setShowedMovies] = useState(savedMoviesList); // показываемывые фильмы
-  const [filteredMovies, setFilteredMovies] = useState(showedMovies); // отфильтрованные по запросу фильмы
+  function handleSubmit(e) {
+    e.preventDefault();
+    setFirstSearch(false)
+    isValid ? handleSearchSubmit(values.search) : setErrorQuery('Нужно ввести ключевое слово.');
+};
 
-  // поиск по запросу
+useEffect(() => {
+    setErrorQuery('')
+}, [isValid]);
+
+useEffect(() => {
+    if (location.pathname === '/movies' && localStorage.getItem(`${currentUser} - movieSearch`)) {
+    const searchValue = localStorage.getItem(`${currentUser} - movieSearch`);
+    values.search = searchValue;
+    setIsValid(true);
+    }
+}, [currentUser]);
+
   function handleSearchSubmit(inputValue) {
     const moviesList = filterMovies(savedMoviesList, inputValue, shortMovies);
     if (moviesList.length === 0) {
@@ -35,7 +57,6 @@ function SavedMovies({ onDeleteClick, savedMoviesList, setIsInfoTooltip, loggedI
     }
   }
 
-  // состояние чекбокса
   function handleShortFilms() {
     if (!shortMovies) {
       setShortMovies(true);
@@ -50,7 +71,6 @@ function SavedMovies({ onDeleteClick, savedMoviesList, setIsInfoTooltip, loggedI
     }
   }
 
-  // проверка чекбокса в локальном хранилище
   useEffect(() => {
     if (localStorage.getItem(`${currentUser.email} - shortSavedMovies`) === 'true') {
       setShortMovies(true);
@@ -65,14 +85,25 @@ function SavedMovies({ onDeleteClick, savedMoviesList, setIsInfoTooltip, loggedI
     setFilteredMovies(savedMoviesList);
     savedMoviesList.length !== 0 ? setNotFound(false) : setNotFound(true);
   }, [savedMoviesList]);
+
+  useEffect(() => {
+    if (!firstSearch) {
+    handleSearchSubmit(values.search);
+    }
+  }, [shortMovies])
+
+  const input = values.search || ''
     return(
         <section className="movies">
             <Header loggedIn={loggedIn} />
             <main>
                 <SearchForm
-                handleSearchSubmit={handleSearchSubmit}
                 handleShortFilms={handleShortFilms}
                 shortMovies={shortMovies}
+                handleSubmit={handleSubmit}
+                handleChange={handleChange}
+                input={input}
+                errorQuery={errorQuery}
                 />
                 {!NotFound && (
                     <MoviesCardList
