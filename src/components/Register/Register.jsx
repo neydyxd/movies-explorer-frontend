@@ -36,7 +36,7 @@ function Register({ handleRegisterUser }) {
                 <input className='form__input' onChange={handleNameChange} type='name' minLength={2} maxLength={30} required></input>
                 <span className='form__input-error'></span>
                 <h3 className='form__input-title'>E-mail</h3>
-                <input className='form__input' onChange={handleEmailChange} type='email' required></input>
+                <input className='form__input' onChange={handleEmailChange} type='email'  required></input>
                 <span className='form__input-error'></span>
                 <h3 className='form__input-title'>Пароль</h3>
                 <input className='form__input' onChange={handlePasswordChange} type='password' minLength={8} required></input>

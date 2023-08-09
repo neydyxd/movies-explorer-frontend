@@ -14,6 +14,7 @@ import CurrentUserContext from '../../contexts/CurrentUserContext';
 import authApi from '../../utils/AuthApi'
 import InfoTooltip from '../../components/InfoTooltip/InfoTooltip'
 function App() {
+  const validator = require('validator');
   const [currentUser, setCurrentUser] = useState({
     email: '',
     name: ''
@@ -32,6 +33,7 @@ function App() {
   }
   
   function handleRegisterUser(name,email,password) {
+    if (validator.isEmail(email)){
     authApi.registerUser(name, email, password)
     .then((data) => {
       if(data) {
@@ -50,6 +52,13 @@ function App() {
         text: 'Такой пользователь уже существует'
       });
     })
+  } else {
+    setIsInfoTooltip({
+      isOpen: true,
+      successful: false,
+      text: 'Введены не корректные данные'
+    });
+  }
   }
 
   function setUserData() {
