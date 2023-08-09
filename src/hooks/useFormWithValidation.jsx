@@ -8,6 +8,7 @@ export default function useFormWithValidation() {
 
   const handleChange = (e) => {
     const input = e.target;
+    console.log(input.value)
     const { value, name } = input;
 
     if (name === 'name' && input.validity.patternMismatch) {

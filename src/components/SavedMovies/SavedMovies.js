@@ -34,8 +34,8 @@ useEffect(() => {
 }, [isValid]);
 
 useEffect(() => {
-    if (location.pathname === '/movies' && localStorage.getItem(`${currentUser} - movieSearch`)) {
-    const searchValue = localStorage.getItem(`${currentUser} - movieSearch`);
+    if (location.pathname === '/movies' && localStorage.getItem(`currentUser - movieSearch`)) {
+    const searchValue = localStorage.getItem(`currentUser - movieSearch`);
     values.search = searchValue;
     setIsValid(true);
     }
@@ -60,19 +60,19 @@ useEffect(() => {
   function handleShortFilms() {
     if (!shortMovies) {
       setShortMovies(true);
-      localStorage.setItem(`${currentUser.email} - shortSavedMovies`, true);
+      localStorage.setItem(`currentUser - shortSavedMovies`, true);
       setShowedMovies(filterShortMovies(filteredMovies));
       filterShortMovies(filteredMovies).length === 0 ? setNotFound(true) : setNotFound(false);
     } else {
       setShortMovies(false);
-      localStorage.setItem(`${currentUser.email} - shortSavedMovies`, false);
+      localStorage.setItem(`currentUser - shortSavedMovies`, false);
       filteredMovies.length === 0 ? setNotFound(true) : setNotFound(false);
       setShowedMovies(filteredMovies);
     }
   }
 
   useEffect(() => {
-    if (localStorage.getItem(`${currentUser.email} - shortSavedMovies`) === 'true') {
+    if (localStorage.getItem(`currentUser - shortSavedMovies`) === 'true') {
       setShortMovies(true);
       setShowedMovies(filterShortMovies(savedMoviesList));
     } else {
