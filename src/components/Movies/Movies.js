@@ -19,14 +19,12 @@ function Movies({ setIsInfoTooltip, savedMoviesList, onLikeClick, onDeleteClick,
     const [isAllMovies, setIsAllMovies] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const currentUser = useContext(CurrentUserContext);
-    const [firstSearch, setFirstSearch] = useState(true);
     const { values, handleChange, isValid, setIsValid } = useFormWithValidation();
     const [errorQuery, setErrorQuery] = useState('');
     const input = values.search || ''
 
     function handleSubmit(e) {
       e.preventDefault();
-      setFirstSearch(false)
       isValid ? handleSearchSubmit(values.search) : setErrorQuery('Нужно ввести ключевое слово.');
   };
   

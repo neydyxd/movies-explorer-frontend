@@ -18,14 +18,13 @@ function SavedMovies({ onDeleteClick, savedMoviesList, setIsInfoTooltip, loggedI
   const [NotFound, setNotFound] = useState(false); 
   const [showedMovies, setShowedMovies] = useState(savedMoviesList); 
   const [filteredMovies, setFilteredMovies] = useState(showedMovies); 
-  const [firstSearch, setFirstSearch] = useState(true);
   const { values, handleChange, isValid, setIsValid } = useFormWithValidation();
   const [errorQuery, setErrorQuery] = useState('');
+  const input = values.search || ''
 
 
   function handleSubmit(e) {
     e.preventDefault();
-    setFirstSearch(false)
     isValid ? handleSearchSubmit(values.search) : setErrorQuery('Нужно ввести ключевое слово.');
 };
 
@@ -87,12 +86,13 @@ useEffect(() => {
   }, [savedMoviesList]);
 
   useEffect(() => {
-    if (!firstSearch) {
+    if (values.search !== undefined) {
     handleSearchSubmit(values.search);
+    console.log(values.search);
     }
   }, [shortMovies])
 
-  const input = values.search || ''
+
     return(
         <section className="movies">
             <Header loggedIn={loggedIn} />
