@@ -1,0 +1,100 @@
+.info-tooltip {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0,0,0,0.5);
+    visibility: hidden;
+    transition: visibility 0.5s, opacity 0.5s linear;
+    opacity: 0;
+  }
+  
+  .info-tooltip_opened {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  .info-tooltip__container {
+    margin: 0 auto;
+    width: 430px;
+    height: 300px;
+    background-color: #4285f4;
+    border-radius: 10px;
+    box-sizing: border-box;
+    box-shadow: 0 0 20px 20px #3da3dc5c;
+    cursor: default;
+    position: relative;
+  }
+  
+  .info-tooltip__status {
+    width: 120px;
+    height: 120px;
+    margin: 26px auto 32px;
+  }
+  
+  .info-tooltip__status_fail {
+    background-image: url(../../images/fail.png);
+  }
+  
+  .info-tooltip__status_success {
+    background-image: url(../../images/success.png);
+  }
+  
+  .info-tooltip__title {
+    margin: 0 0 24px;
+    font-size: 24px;
+    font-weight: 900;
+    line-height: 1.208;
+    font-style: normal;
+    text-align: center;
+  }
+  
+  .info-tooltip__close-button {
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background-color: transparent;
+    background-image: url(../../images/close.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    padding: 0;
+    opacity: 1;
+    transition: all .3s ease;
+  }
+  
+  .info-tooltip__close-button:hover {
+    opacity: .8;
+    cursor: pointer;
+  }
+  
+  @media screen and (max-width: 767px) {
+    .info-tooltip__container {
+      max-width: 282px;
+      padding: 25px 22px;
+    }
+  
+    .info-tooltip__status {
+      margin: 25px auto 40px;
+    }
+  
+    .info-tooltip__title {
+      font-size: 20px;
+      line-height: 1.2;
+      margin-bottom: 25px;
+    }
+  
+    .info-tooltip__close-button {
+      width: 20px;
+      height: 20px;
+      top: -38px;
+      right: 0;
+    }
+  }

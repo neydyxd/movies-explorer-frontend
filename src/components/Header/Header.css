@@ -1,0 +1,193 @@
+.header{
+    background-color: #DDDEE3;
+}
+.header__buttons{
+    display: flex;
+    width: 220px;
+    margin-left: 55px;
+}
+.header__signup{
+    padding: 0;
+    background: none;
+    border: none;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    margin-top: 5px;
+    color: black;
+}
+
+.header__signin{
+    color: white;
+    display: block;
+    box-sizing: border-box;
+    background-color: #3456F3;
+    border-radius: 3px;
+    box-shadow: none;
+    border-color: #3456F3;
+    width: 76px;
+    text-align: center;
+    height: 32px;
+    padding: 0;
+    margin-left: 30px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    padding-top: 8px;
+}
+
+.header__container{
+    margin: 0 auto;
+    padding: 18px 0 18px 0;
+    width: 1140px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+}
+
+.header-movies{
+    background-color: #FAFAFA;
+}
+
+.header__button{
+    text-decoration: none;
+    font-size: 13px;
+    line-height: 18px;
+    font-weight: 400;
+    color: black;
+}
+
+.header__button:first-of-type{
+    margin-right: 10px;
+}
+
+.header__button:hover{
+    opacity: 0.6;
+}
+
+.header-movies__buttons{
+    display: flex;
+    align-items: center;
+}
+
+.header__account-button{
+    text-decoration: none;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    border-radius: 50px;
+    height: 32px;
+    border: 2px solid #AAAAAA;
+}
+
+.header__account-button:hover{
+    cursor: pointer;
+    opacity: 0.6;
+}
+.header__account-title{
+    margin: 0;
+    color: black;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 12px;
+
+}
+
+.header__account-container{
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header__menu-button{
+    background: none;
+    border: none;
+    display: none;
+    padding: 0;
+}
+
+.header__button_active{
+    text-decoration: none;
+    font-size: 13px;
+    line-height: 18px;
+    font-weight: 700;
+    color: black;
+}
+
+.header__button_active:first-of-type{
+    margin-right: 10px;
+}
+
+.header__button_active:hover{
+    opacity: 0.6;
+}
+@media screen and (min-width:768px) and (max-width:1279px) {
+    .header__container{
+        width: 708px;
+    }
+
+    .header__button{
+        display: none;
+    }
+
+    .header__button_active{
+        display: none;
+    }
+
+    .header__account-button{
+        display: none;
+    }
+
+    .header__menu-button{
+        display: block;
+    }
+
+    .header-movies__buttons{
+        justify-content: end;
+    }
+}
+@media screen and (min-width:320px) and (max-width:767px) {
+    .header__container{
+        width: 292px;
+        font-size: 10px;
+        justify-content: space-between;
+
+    }
+    
+    .header__signin{
+        width: 54px;
+        height: 26px;
+        margin-left: 14px;
+        padding-top: 6px;
+    }
+
+    .header__button{
+        display: none;
+    }
+
+    .header__buttons{
+        width: 199px;
+        justify-content: end;
+    }
+
+    .header__account-button{
+        display: none;
+    }
+
+    .header__menu-button{
+        display: block;
+    }
+    
+    .header__button_active{
+        display: none;
+    }
+}

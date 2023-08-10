@@ -1,0 +1,114 @@
+.card{
+    width: 364px;
+    background-color: white;
+    padding-bottom: 16px;
+    border-radius: 6px;
+    box-shadow: 0px 13px 8px 0px rgba(0, 0, 0, 0.04);
+    max-height: 275px;
+}
+
+.card__image{
+    width: 100%;
+    height: 203px;
+    object-fit: cover;
+    border-radius: 6px 6px 0 0;
+}
+
+.card__text{
+    font-size: 13px;
+    font-weight: 500;
+    margin: 0 0 0 10px;
+}
+
+.card__info-container{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 0 0 8px 0;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+.card__like{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    padding: 0;
+    border: none;
+    background-image: url(../../images/white-like.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-right: 20px;
+    background-color: white ;
+}
+
+.card__delete{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    padding: 0;
+    border: none;
+    background-image: url(../../images/delete.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-right: 20px;
+    background-color: white ;
+}
+
+.card__delete:hover{
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+
+.card__like_active{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    padding: 0;
+    border: none;
+    background-image: url(../../images/red-like.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-right: 20px;
+    background-color: white;
+}
+
+.card__like:hover{
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+.card__time{
+    font-size: 11px;
+    font-weight: 400;
+    margin-left: 10px;
+}
+
+@media screen and (min-width: 768px) and (max-width:1279px) {
+    .card{
+        width: 339px;
+    }
+
+    .card__image{
+        height: 190px;
+    }
+}
+
+@media screen and (min-width: 320px) and (max-width:767px) {
+    .card{
+        width: 300px;
+    }
+
+    .card__image{
+        height: 168px;
+    }
+
+    .card__time{
+        font-size: 10px;
+    }
+
+    .card__text{
+        font-size: 12px;
+    }
+}

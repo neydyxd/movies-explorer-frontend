@@ -1,0 +1,97 @@
+.search{
+    max-width: 100vw;
+    margin: 0 auto;
+    padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 70px;
+    background-color: #FAFAFA;
+}
+
+.search__form{
+    width: 1140px;
+    height: 48px;
+    border: 1px solid #E8E8E8;
+    border-radius: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.search__input{
+    width: 800px;
+    border: none;
+    margin-left: 20px;
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 400;
+    background-color: #FAFAFA;
+    height: 97%;
+}
+
+.search__input:focus{
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+}
+
+.search__input:focus {
+    outline: none;
+}
+
+.search__button {
+    background-image: url('../../images/fing.svg');
+    background-size: cover;
+    width: 34px;
+    height: 34px;
+    border: none;
+    border-radius: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #3456F3;
+    margin-right: 7px;
+    padding: 0;
+  }
+
+  .search__button:hover{
+    opacity: 0.6;
+    cursor: pointer;
+  }
+
+@media screen and (min-width: 768px) and (max-width:1279px) {
+    .search{
+        flex-direction: column;
+        align-items: center;
+        justify-content: start;
+        padding-bottom: 57px;
+    }
+
+    .search__form{
+        width: 708px;
+        min-height: 48px;
+    }
+
+    .search__input{
+        width: 650px;
+    }
+    
+}
+
+@media screen and (min-width: 320px) and (max-width:767px) {
+    .search{
+        flex-direction: column;
+        align-items: center;
+        justify-content: start;
+        padding-bottom: 44px;
+    }
+
+    .search__form{
+        width: 300px;
+        min-height: 48px;
+    }
+
+    .search__input{
+        width: 250px;
+    }
+}
+ 
