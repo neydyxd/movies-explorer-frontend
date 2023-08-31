@@ -1,3 +1,7 @@
+# Ссылка на развёрнутый проект
+*https://movies-explorer-frontend-two-gamma.vercel.app/*
+---
+
 # Movies-explorer-api (backend)
 ### API для дипломного проекта для Яндекс.Практикум
 ---
